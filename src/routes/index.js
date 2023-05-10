@@ -24,14 +24,25 @@ rootRouter.get('/', (req, res) => {
 })
 
 // TODO config cors
-server.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-  });
+//server.use(function(req, res, next) {
+ //   res.header("Access-Control-Allow-Origin", "*");
+  //  res.header(
+    //  "Access-Control-Allow-Headers",
+     // "Origin, X-Requested-With, Content-Type, Accept"
+    //);
+    //next();
+  //});
+
+// Middleware para verificar el subdominio
+server.use((req, res, next) => {
+  const subdomain = req.subdomains[0];
+   console.log(subdomain)
+  if (subdomain === 'abmdev') {
+    // Permite solicitudes desde el subdominio abmdev.desarrollosmonigote.com
+    res.setHeader('Access-Control-Allow-Origin', 'http://abmdev.desarrollosmonigote.com');
+  }
+  next();
+});
 
 // redirection to routers y controllers
 server.use('/', rootRouter) //  http://localhost:8000/api/
