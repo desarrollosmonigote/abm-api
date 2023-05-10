@@ -21,6 +21,9 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 // server.use(express.urlencoded({extended: true }))
 // server.use(express.json())
+server.use(cors({
+ origin: ['https://abm-api-eucb.onrender.com', "https://abmdev.desarrollosmonigote.com", "http://abmdev.desarrollosmonigote.com", "http://abmdev.desarrollosmonigote.com"]
+}));
 
 // * Static folder
 server.use(express.static('static'))
@@ -45,9 +48,6 @@ mongoose.connect('mongodb+srv://ppromedio:ppromedio123@cluster0.cx37b5n.mongodb.
 // * security config
 //  server.use(helmet());
 //  server.use(cors());
-server.use(cors({
- origin: ['https://abm-api-eucb.onrender.com']
-}));
 
 
 
